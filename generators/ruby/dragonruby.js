@@ -1,6 +1,6 @@
 // Runtime
 Blockly.Ruby.gtk_state = function(block) {
-  return ["$state", Blockly.Ruby.ORDER_ATOMIC];
+  return ["$gtk.args.state", Blockly.Ruby.ORDER_ATOMIC];
 };
 
 Blockly.Ruby.gtk_current_framerate = function(block) {
@@ -327,24 +327,24 @@ Blockly.Ruby.layout_rect = function(block) {
 
 // State
 Blockly.Ruby.state_created_at_elapsed = function(block) {
-  return ["$state.created_at_elapsed", Blockly.Ruby.ORDER_ATOMIC];
+  return ["$gtk.args.state.created_at_elapsed", Blockly.Ruby.ORDER_ATOMIC];
 };
 
 Blockly.Ruby.state_init_variable = function(block) {
   var text_name = block.getFieldValue('name');
   var value = Blockly.Ruby.valueToCode(block, 'value', Blockly.Ruby.ORDER_ATOMIC);
-  return "$state." + text_name + " ||= " + value + "\n";
+  return "$gtk.args.state." + text_name + " ||= " + value + "\n";
 };
 
 Blockly.Ruby.state_set_variable = function(block) {
   var text_name = block.getFieldValue('name');
   var value = Blockly.Ruby.valueToCode(block, 'value', Blockly.Ruby.ORDER_ATOMIC);
-  return "$state" + (text_name != "" ? ("." + text_name) : "") + " = " + value + "\n";
+  return "$gtk.args.state" + (text_name != "" ? ("." + text_name) : "") + " = " + value + "\n";
 };
 
 Blockly.Ruby.state_get_variable = function(block) {
   var text_name = block.getFieldValue('name');
-  return ["$state" + (text_name != "" ? ("." + text_name) : ""), Blockly.Ruby.ORDER_ATOMIC];
+  return ["$gtk.args.state" + (text_name != "" ? ("." + text_name) : ""), Blockly.Ruby.ORDER_ATOMIC];
 };
 
 // Outputs
