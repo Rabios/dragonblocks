@@ -1,0 +1,1281 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="h{dcP$cn.wKz@FYAM4C!">args</variable>
+    <variable id="9!^-{9oVV~?Yqp$5@f3t">end_state</variable>
+  </variables>
+  <block type="procedures_defnoreturn" id="+p*D(ro8{uV[t;V.gtql" x="-737" y="62">
+    <mutation>
+      <arg name="args" varid="h{dcP$cn.wKz@FYAM4C!"></arg>
+    </mutation>
+    <field name="NAME">tick</field>
+    <comment pinned="false" h="80" w="160">Game Loop!</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="VKR7x$~36Du*VTgnbsDX">
+        <value name="IF0">
+          <block type="logic_compare" id="j;)r-u:V:_6EX]nOtdt%">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="state_get_variable" id="P]Qj}Lz]!;%wMQic}^e`">
+                <field name="name">tick_count</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="OCkl7#CjfoQpOQMfQ8m;">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="procedures_callnoreturn" id="uj;^4+uiq8=:XTwj-5:I">
+            <mutation name="defaults"></mutation>
+          </block>
+        </statement>
+        <next>
+          <block type="procedures_callnoreturn" id="X@C.[;ks[[Zh;i{Z])dm">
+            <mutation name="check_inputs"></mutation>
+            <next>
+              <block type="procedures_callnoreturn" id="8gUQb~n~{ZS=EB3Zc(_!">
+                <mutation name="calc"></mutation>
+                <next>
+                  <block type="procedures_callnoreturn" id="^HFIKII^}nF8G-P5-zWr">
+                    <mutation name="render"></mutation>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="3eVxjJxh/Q4L*argYLi5" x="62" y="87">
+    <field name="NAME">calc</field>
+    <comment pinned="false" h="80" w="160">Perform calculations every tick</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="+h+P(w/[jrN=VV,oo^P$">
+        <value name="IF0">
+          <block type="logic_negate" id="~L8%A:Vs[NA{K#:V~LuK">
+            <value name="BOOL">
+              <block type="logic_compare" id="J1KwvUs|[^[=_mKU`.n1">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="state_get_variable" id="D4kn-Xl.BDgnuDjD$p{P">
+                    <field name="name">game_state</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text" id="X*0p6:4n1jH}*Q!.C3Lk">
+                    <field name="TEXT">playing</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="return" id="I9xVRDf(jRX!oRO(2q2,"></block>
+        </statement>
+        <next>
+          <block type="procedures_callnoreturn" id="]*=Y36)SCWfteLk:*X3B">
+            <mutation name="move_player_bullet"></mutation>
+            <next>
+              <block type="procedures_callnoreturn" id="0~`[~TJl3CoZx}vz^KJ%">
+                <mutation name="move_enemy"></mutation>
+                <next>
+                  <block type="procedures_callnoreturn" id="-I]ZXr}^FL5,trUhI8L,">
+                    <mutation name="enemy_shoot"></mutation>
+                    <next>
+                      <block type="procedures_callnoreturn" id="Ev9!.aD!OXJ@TgfL;WEs">
+                        <mutation name="move_enemy_bullet"></mutation>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="igx8g1ULNvcD0vc;Av8E" x="1562" y="112">
+    <field name="NAME">render</field>
+    <comment pinned="false" h="80" w="160">Draw the game to the screen</comment>
+    <statement name="STACK">
+      <block type="procedures_callnoreturn" id="G|_|sSD~_#hfFCI7VOYu">
+        <mutation name="render_player_bullet"></mutation>
+        <next>
+          <block type="procedures_callnoreturn" id="D5;+lX%7AQy@$]h=SZYG">
+            <mutation name="render_player"></mutation>
+            <next>
+              <block type="procedures_callnoreturn" id="u5;v6@1-SsfgjR;5LQEp">
+                <mutation name="render_enemy_bullet"></mutation>
+                <next>
+                  <block type="procedures_callnoreturn" id="p|)]b!ijd?Y8c_ko(rCJ">
+                    <mutation name="render_enemy"></mutation>
+                    <next>
+                      <block type="procedures_callnoreturn" id="EzKpu9]{H?:pGg/p;!}e">
+                        <mutation name="render_game_over"></mutation>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="WgS)(,}s*#R(mVAhxZ6{" x="-726" y="296">
+    <field name="NAME">defaults</field>
+    <comment pinned="false" h="80" w="160">Set initial values for state variables</comment>
+    <statement name="STACK">
+      <block type="state_set_variable" id="~$1*dzK0A#yO%B(Ib(7l">
+        <field name="name">game_state</field>
+        <value name="value">
+          <block type="text" id="RC/ZstgJbp^ZTFn~Kn=@">
+            <field name="TEXT">playing</field>
+          </block>
+        </value>
+        <next>
+          <block type="state_set_variable" id="g@GgLHpi(V~!MsFlG$4_">
+            <field name="name">margin</field>
+            <value name="value">
+              <block type="math_number" id="km]/H_.aG5PAl8]KzrFp">
+                <field name="NUM">40</field>
+              </block>
+            </value>
+            <next>
+              <block type="state_set_variable" id="M#SqYU,!`G#A|JobhTxF">
+                <field name="name">player_rect</field>
+                <value name="value">
+                  <block type="geometry_new_rect" id="/IeI]u7}j4d[LYBdtFo5">
+                    <value name="x">
+                      <shadow type="math_number" id="h]3T}v0Vf+c}icZ!=jWd">
+                        <field name="NUM">640</field>
+                      </shadow>
+                    </value>
+                    <value name="y">
+                      <shadow type="math_number" id="8f^okQy@HN)/1RmL4F.p">
+                        <field name="NUM">40</field>
+                      </shadow>
+                      <block type="state_get_variable" id="l].rIQKxh9QV234i)2Y8">
+                        <field name="name">margin</field>
+                      </block>
+                    </value>
+                    <value name="w">
+                      <shadow type="math_number" id="I;rJKUNIm~_9]hw%M1}(">
+                        <field name="NUM">80</field>
+                      </shadow>
+                    </value>
+                    <value name="h">
+                      <shadow type="math_number" id="_Ybeg[3(||o@jX.?N7{r">
+                        <field name="NUM">80</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="state_set_variable" id="8R=zxD3Aa]|GGAk-o1}K">
+                    <field name="name">player_color</field>
+                    <value name="value">
+                      <block type="outputs_new_color" id="Wt0ff#3l65=J#uq^J{Lh">
+                        <value name="r">
+                          <shadow type="math_number" id="jk}nC=^=.ob]R?q|4N/C">
+                            <field name="NUM">255</field>
+                          </shadow>
+                        </value>
+                        <value name="g">
+                          <shadow type="math_number" id="==glCq!!|N5eHF6J+=]Y">
+                            <field name="NUM">128</field>
+                          </shadow>
+                        </value>
+                        <value name="b">
+                          <shadow type="math_number" id="D35OQ`|Kh3!smvmD0-6=">
+                            <field name="NUM">0</field>
+                          </shadow>
+                        </value>
+                        <value name="a">
+                          <shadow type="math_number" id="l+qop45}(KObs=@rymC$">
+                            <field name="NUM">255</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="state_set_variable" id="FXC06!Sa,s7y~,$VR8b{">
+                        <field name="name">player_speed</field>
+                        <value name="value">
+                          <block type="math_number" id="d4g:9@N5-{]2Z2IUw4~[">
+                            <field name="NUM">5</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="state_set_variable" id="EyyEV}`OIxk=T3F0Ysgz">
+                            <field name="name">player_bullet_rect</field>
+                            <value name="value">
+                              <block type="geometry_new_rect" id="njv9}avK!P(aq4UmJ%^w">
+                                <value name="x">
+                                  <shadow type="math_number" id="?cG`R?*AD7)V?joXqi:/">
+                                    <field name="NUM">0</field>
+                                  </shadow>
+                                </value>
+                                <value name="y">
+                                  <shadow type="math_number" id="C51-6/5oHGT$?#7S7|kq">
+                                    <field name="NUM">-999</field>
+                                  </shadow>
+                                </value>
+                                <value name="w">
+                                  <shadow type="math_number" id="O3+3_)+Tn!-_%l]i_RnT">
+                                    <field name="NUM">20</field>
+                                  </shadow>
+                                </value>
+                                <value name="h">
+                                  <shadow type="math_number" id="xuBSAio.2wX0^kuCRD-~">
+                                    <field name="NUM">40</field>
+                                  </shadow>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="state_set_variable" id="8Ryb{[@mOSod]Bt/1(B!">
+                                <field name="name">player_bullet_speed</field>
+                                <value name="value">
+                                  <block type="math_number" id="v4t8tewUpYXQX)zY-gji">
+                                    <field name="NUM">10</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="state_set_variable" id="AY+i53fPs6OZpw~EpX[}">
+                                    <field name="name">player_bullet_shooting</field>
+                                    <value name="value">
+                                      <block type="logic_boolean" id="FpC2-=_uIPh#-`eA}Jxi">
+                                        <field name="BOOL">FALSE</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="state_set_variable" id="`(tTLu?(VdTh[VyDrU:T">
+                                        <field name="name">enemy_dir</field>
+                                        <value name="value">
+                                          <block type="math_number" id="0Fn_F@?)bZ$)4:z.^tSQ">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="state_set_variable" id="A~,dHQRLB4KDh%DBN:#D">
+                                            <field name="name">enemy_speed</field>
+                                            <value name="value">
+                                              <block type="math_number" id="az.;VJU@%:-0LF!7uPl7">
+                                                <field name="NUM">3</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="state_set_variable" id="K@pYr5at+#SUna*Ex;xE">
+                                                <field name="name">enemy_rect</field>
+                                                <value name="value">
+                                                  <block type="geometry_new_rect" id="fnZsKPc[MOQ5ot0PS[zI">
+                                                    <value name="x">
+                                                      <shadow type="math_number" id="|8e[;*lY*_?zLFq#@^dH">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="y">
+                                                      <shadow type="math_number" id="Odbs_i8.7Y/IUBu,/ei_">
+                                                        <field name="NUM">600</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="w">
+                                                      <shadow type="math_number" id=")HRZCNLE`@K~(v4ITc/5">
+                                                        <field name="NUM">80</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="h">
+                                                      <shadow type="math_number" id="@+6jf)(7Ktwh;l1gBY?s">
+                                                        <field name="NUM">80</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="state_set_variable" id="[jknTkpMq3n{aFb:4F=P">
+                                                    <field name="name">enemy_color</field>
+                                                    <value name="value">
+                                                      <block type="outputs_new_color" id="F2Fdb%I,t4_xaJ;vYCE|">
+                                                        <value name="r">
+                                                          <shadow type="math_number" id="{iXOoV6j+[40%^An;J;h">
+                                                            <field name="NUM">128</field>
+                                                          </shadow>
+                                                        </value>
+                                                        <value name="g">
+                                                          <shadow type="math_number" id="|cd3fmS^ssoJqv1ybM-g">
+                                                            <field name="NUM">0</field>
+                                                          </shadow>
+                                                        </value>
+                                                        <value name="b">
+                                                          <shadow type="math_number" id="^}]X+ozhv//@mqu@;e+f">
+                                                            <field name="NUM">255</field>
+                                                          </shadow>
+                                                        </value>
+                                                        <value name="a">
+                                                          <shadow type="math_number" id="tR,H{xD22[jQ0`fL%Ui-">
+                                                            <field name="NUM">255</field>
+                                                          </shadow>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="state_set_variable" id="iG?dz_6M+c1;W5)+)sJg">
+                                                        <field name="name">enemy_bullet_rect</field>
+                                                        <value name="value">
+                                                          <block type="geometry_new_rect" id="bK#4x2eyW7=*+ijiL@#o">
+                                                            <value name="x">
+                                                              <shadow type="math_number" id="-{S[0Hmf3-67Y+A{ETwK">
+                                                                <field name="NUM">0</field>
+                                                              </shadow>
+                                                            </value>
+                                                            <value name="y">
+                                                              <shadow type="math_number" id="g.z9Py,[Mu:.4T?v)hwC">
+                                                                <field name="NUM">999</field>
+                                                              </shadow>
+                                                            </value>
+                                                            <value name="w">
+                                                              <shadow type="math_number" id="u-ko^f#K/7-[z4/H[meR">
+                                                                <field name="NUM">20</field>
+                                                              </shadow>
+                                                            </value>
+                                                            <value name="h">
+                                                              <shadow type="math_number" id=",_D$%6oSEuChzZXG%b+4">
+                                                                <field name="NUM">40</field>
+                                                              </shadow>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="state_set_variable" id=":$g!dc6uNie5#.{=4M@I">
+                                                            <field name="name">enemy_bullet_speed</field>
+                                                            <value name="value">
+                                                              <block type="math_number" id="t!fCoLZ]Gmo94KRl+I(P">
+                                                                <field name="NUM">10</field>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="state_set_variable" id="Bkp4[NYW]00vIcz;v%E9">
+                                                                <field name="name">enemy_bullet_shooting</field>
+                                                                <value name="value">
+                                                                  <block type="logic_boolean" id="oQ5bjR0D!6GdrfU(9xbj">
+                                                                    <field name="BOOL">FALSE</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="j/VVjY;8M5zSrSXk%=!x" x="63" y="387">
+    <field name="NAME">move_player_bullet</field>
+    <comment pinned="false" h="80" w="160">move the player bullet up the screen</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="OQx;FiKo5:5@@b;cm5os">
+        <value name="IF0">
+          <block type="logic_compare" id=",]U2s_rF.4kKNM;:;l9c">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="state_get_variable" id="[hzjHOoBP7u86pfXSB|O">
+                <field name="name">player_bullet_shooting</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_boolean" id="!}1HXE2o5f29G?/ihpj$">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="procedures_callnoreturn" id="d6ZETSx*%ln-i}U{Vr)X">
+            <mutation name="check_enemy_hit"></mutation>
+            <next>
+              <block type="state_set_variable" id="u%Z~BRt/e=i1:!)1nT;$">
+                <field name="name">player_bullet_rect.y</field>
+                <value name="value">
+                  <block type="math_arithmetic" id="W*cqFvEuNB#uq7$ywzk#">
+                    <field name="OP">ADD</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="e=^)EGwmIY{@k7U=(Ku=">
+                        <field name="name">player_bullet_rect.y</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="J)yrNp?|SD=Ms6I.dFU5">
+                        <field name="name">player_bullet_speed</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if" id="@:6YJkL,8bu9jm-^|mC?">
+                    <value name="IF0">
+                      <block type="logic_compare" id="FE9*kO+h=$zhlSHNcEKc">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="state_get_variable" id="=e5/9P8xLS7LUG9Y_Wp3">
+                            <field name="name">player_bullet_rect.y</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_arithmetic" id="1(4b,13AO63?/CnWZ4!E">
+                            <field name="OP">ADD</field>
+                            <value name="A">
+                              <shadow type="math_number" id="Q11]yMTUo(+2Zt3,lnue">
+                                <field name="NUM">80</field>
+                              </shadow>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="grid_get" id="aAH62^,w^*uZjw`S;|~_">
+                                <field name="member">top</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="state_set_variable" id="b3pr8rTdyr2Z?WP6;p+V">
+                        <field name="name">player_bullet_shooting</field>
+                        <value name="value">
+                          <block type="logic_boolean" id="AkZ.jF7P-m#K:9u$WAK4">
+                            <field name="BOOL">FALSE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="#P%#?ql:k[0`e,t$Dpb/" x="1562" y="337">
+    <field name="NAME">render_player_bullet</field>
+    <comment pinned="false" h="80" w="160">Draw the player's bullet</comment>
+    <statement name="STACK">
+      <block type="outputs_solid" id="LI0gc:D6Jv/R#xQHE?+M">
+        <value name="rect">
+          <block type="state_get_variable" id="+0tVH.V!ncg(R%b]Lqm#">
+            <field name="name">player_bullet_rect</field>
+          </block>
+        </value>
+        <value name="color">
+          <block type="state_get_variable" id="G.KEv2;A=/ncs[mG.yiX">
+            <field name="name">player_color</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="6XjXEv5J|=x;ti_pdVqP" x="1562" y="488">
+    <field name="NAME">render_enemy_bullet</field>
+    <comment pinned="false" h="80" w="160">Draw the enemy's bullet</comment>
+    <statement name="STACK">
+      <block type="outputs_solid" id="L5g*zqir1-VN*npe%7%q">
+        <value name="rect">
+          <block type="state_get_variable" id=";8;L8.W*rnWGiW_kBAfR">
+            <field name="name">enemy_bullet_rect</field>
+          </block>
+        </value>
+        <value name="color">
+          <block type="state_get_variable" id="B{s3w|J+kuf[T?e42#,K">
+            <field name="name">enemy_color</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="`5cNjmFDCa0am%WFYTY-" x="63" y="687">
+    <field name="NAME">move_enemy</field>
+    <comment pinned="false" h="80" w="160">Move the enemy left and right. Make it reverse if it hits the edge.</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="xA#pYzwsEHa^[[Ic!E=y">
+        <value name="IF0">
+          <block type="logic_operation" id="W`KV;/h3Ui?5L/e}UgW`">
+            <field name="OP">OR</field>
+            <value name="A">
+              <block type="logic_compare" id="[U:28XcK/v2xtl1,63nh">
+                <field name="OP">LT</field>
+                <value name="A">
+                  <block type="state_get_variable" id="0U-U3k9B)u.d;!8ZSgkr">
+                    <field name="name">enemy_rect.x</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="BR,)C$*M7dZ-1LxbWQo]">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_compare" id="z}UlN]I(o~7u1Ag.rN(Q">
+                <field name="OP">GT</field>
+                <value name="A">
+                  <block type="state_get_variable" id="hK`}*{Uk?i@RFHb(wINg">
+                    <field name="name">enemy_rect.x</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_arithmetic" id="wYm4v89/S/bDgv8::|EM">
+                    <field name="OP">MINUS</field>
+                    <value name="A">
+                      <shadow type="math_number" id="2crF:^QBz}OZeBO%pRU{">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="grid_get" id="5SgeIrTLjB]9-|~HH-E}">
+                        <field name="member">w</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id="ve^+L)M)~+Ep?fogKpvK">
+                        <field name="NUM">80</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="state_set_variable" id="d*/k!3pi.SZ7`gJ;ziXt">
+            <field name="name">enemy_dir</field>
+            <value name="value">
+              <block type="math_arithmetic" id=")ZCwQ8B{x[i;|2Ay:/oj">
+                <field name="OP">MINUS</field>
+                <value name="A">
+                  <shadow type="math_number" id="y=Nicj6#8mf=`_lCxC,j">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="B">
+                  <shadow type="math_number" id="o/]Fq3s(%-}{I+9!nq$o">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="state_get_variable" id="d6~x|V7W_[oD4k8Kfl)7">
+                    <field name="name">enemy_dir</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="state_set_variable" id="^yM3]7heBH-*_1pS[-Kx">
+            <field name="name">enemy_rect.x</field>
+            <value name="value">
+              <block type="math_arithmetic" id="-mw,;Q6pJ=MGKKb+8FJ5">
+                <field name="OP">ADD</field>
+                <value name="A">
+                  <shadow type="math_number" id="v9p8NzU%kHNRPIqr!{lv">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="state_get_variable" id="g-sNHkmxB,Ufdn|YR6MH">
+                    <field name="name">enemy_rect.x</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <shadow type="math_number" id="jO3+c;m+F`_{x]-KkO2{">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="math_arithmetic" id="WPDfVAE8|K*;xl:)O+4c">
+                    <field name="OP">MULTIPLY</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="2Qz9Nd8.%{IGy=+Ug5bF">
+                        <field name="name">enemy_speed</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id="-?{hhSWYJTt|4hRN$vOL">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="R^*8[L=;_c^%(*k8rY@N">
+                        <field name="name">enemy_dir</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="Mptqi8XPtCKk7DRS+nSX" x="1562" y="688">
+    <field name="NAME">render_player</field>
+    <comment pinned="false" h="80" w="160">Draw the player</comment>
+    <statement name="STACK">
+      <block type="outputs_solid" id="b;=$WUuR3}y2NU%VzF3e">
+        <value name="rect">
+          <block type="state_get_variable" id="rCUVm6|77:x5{rbMuE})">
+            <field name="name">player_rect</field>
+          </block>
+        </value>
+        <value name="color">
+          <block type="state_get_variable" id="q_ZP5Mn^!/:m;T!2V%p$">
+            <field name="name">player_color</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="ZS:^QePcvWln^$6c!T(4" x="1562" y="862">
+    <field name="NAME">render_enemy</field>
+    <comment pinned="false" h="80" w="160">Draw the enemy</comment>
+    <statement name="STACK">
+      <block type="outputs_solid" id="fDvmo9xNobVkv3X@^Z).">
+        <value name="rect">
+          <block type="state_get_variable" id="eKfm.PZQ}p_HX;YQJIOR">
+            <field name="name">enemy_rect</field>
+          </block>
+        </value>
+        <value name="color">
+          <block type="state_get_variable" id="!tsm-n;FyqUqVci$LF5o">
+            <field name="name">enemy_color</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="g+{jy^G,V3|3s_CK+%Hb" x="63" y="963">
+    <field name="NAME">enemy_shoot</field>
+    <comment pinned="false" h="80" w="160">Enemy shoots a bullet at the player</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="c3O;@a:L{%}Dgd}F;hWc">
+        <value name="IF0">
+          <block type="logic_operation" id="xULV+(h-pfA^p2{1H)Fb">
+            <field name="OP">AND</field>
+            <value name="A">
+              <block type="logic_compare" id="$LGoW,=frvp`@:M~.v4I">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="math_random_int" id="o{~qFNi]1n5lkINR.J!!">
+                    <value name="FROM">
+                      <shadow type="math_number" id="M}-%87W6+${U2JYDp@T%">
+                        <field name="NUM">1</field>
+                      </shadow>
+                    </value>
+                    <value name="TO">
+                      <shadow type="math_number" id="{gUct=dr|.7m14MkyQ4p">
+                        <field name="NUM">100</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="eFhVWX5O0OLhM-sB^zxa">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_compare" id="Uf.~8eI$~o#n,ME%?LTI">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="state_get_variable" id="zstiz:iD,9n|*j[9K%fW">
+                    <field name="name">enemy_bullet_shooting</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_boolean" id="jVPE7^zx3AX?q6otF9?!">
+                    <field name="BOOL">FALSE</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="state_set_variable" id="{rRUGM{qKQX$Z:1nqIAx">
+            <field name="name">enemy_bullet_rect.y</field>
+            <value name="value">
+              <block type="state_get_variable" id="^0Bu63yQSfCU=[PeB)em">
+                <field name="name">enemy_rect.y</field>
+              </block>
+            </value>
+            <next>
+              <block type="state_set_variable" id="7D9zc)?0-wh)[vHABfE{">
+                <field name="name">enemy_bullet_rect.x</field>
+                <value name="value">
+                  <block type="math_arithmetic" id="R6KCnHEfhJ7`ixth~]=k">
+                    <field name="OP">ADD</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="GC+-.GQuDNX^k*][!sL%">
+                        <field name="name">enemy_rect.x</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id="W324,DY[9bX{Y^1LDToE">
+                        <field name="NUM">30</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="state_set_variable" id="P^L=]YVN#d;qBO/$nV(9">
+                    <field name="name">enemy_bullet_shooting</field>
+                    <value name="value">
+                      <block type="logic_boolean" id="9=N:cpq]I`k9Pmo$ECD=">
+                        <field name="BOOL">TRUE</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="7AcZewrpjUtKdL=q)E~9" x="1563" y="1038">
+    <field name="NAME">render_game_over</field>
+    <comment pinned="false" h="80" w="160">Stop the game from playing and show a win/lose screen.</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="4Y~r7oFL!UkIL5W^-5o$">
+        <value name="IF0">
+          <block type="logic_compare" id="U~Y2Uy?swSp2WOP?5U_U">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="state_get_variable" id="w0WtJ1idq@BeFKu{%:6-">
+                <field name="name">game_state</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="text" id="0|64TFbgt~HX{ei=BCw8">
+                <field name="TEXT">playing</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="return" id="SR)cm.^L^C)G?xW?eB7,"></block>
+        </statement>
+        <next>
+          <block type="outputs_solid" id="=Wib#A[aVB[-G6TzeMm.">
+            <value name="rect">
+              <block type="geometry_new_rect" id="wn?U}M~c##ZAC#7]!evg">
+                <value name="x">
+                  <shadow type="math_number" id="oeP@(i|v:|1mZbL9$pJ5">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="y">
+                  <shadow type="math_number" id="_j0dYe,gWwdd4C~*ubLN">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="w">
+                  <shadow type="math_number" id="yXzs!9Ne4l%ZmHoM]9^i">
+                    <field name="NUM">0</field>
+                  </shadow>
+                  <block type="grid_get" id="!+8()6t=DG3EDwaup7;h">
+                    <field name="member">w</field>
+                  </block>
+                </value>
+                <value name="h">
+                  <shadow type="math_number" id="d+j|$qmsVG7K/%5MLq:y">
+                    <field name="NUM">0</field>
+                  </shadow>
+                  <block type="grid_get" id="^b;ods^%4xnfLc-?vriw">
+                    <field name="member">h</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="color">
+              <block type="outputs_new_color" id="n$oq.TPV.x^[~cnBThNQ">
+                <value name="r">
+                  <shadow type="math_number" id="9mTtG[j|rZ;]L%dk%y:D">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="g">
+                  <shadow type="math_number" id="Y`@TmRfFZ[P(Ono/`*XS">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="b">
+                  <shadow type="math_number" id="2X@@9KtOP|A/|CA47q]/">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="a">
+                  <shadow type="math_number" id="Kdz-qvuC9bfU^U?C7Nb_">
+                    <field name="NUM">255</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="outputs_label" id="u(n]+n2|wD%jf!duZv(m">
+                <value name="x">
+                  <shadow type="math_number" id="lde*_w?4FaCOX-O?3Q|1">
+                    <field name="NUM">0</field>
+                  </shadow>
+                  <block type="grid_get" id="3nXs0#4/`dP~t.[6wckO">
+                    <field name="member">w_half</field>
+                  </block>
+                </value>
+                <value name="y">
+                  <shadow type="math_number" id="dfwR1;x2!!~kxn_-fIJ;">
+                    <field name="NUM">300</field>
+                  </shadow>
+                </value>
+                <value name="text">
+                  <shadow type="text" id="(Jc8:o:,}O/.XdA~n`3`">
+                    <field name="TEXT">You #{$state.game_state}</field>
+                  </shadow>
+                </value>
+                <value name="size">
+                  <shadow type="math_number" id="!M/[!iM@adIiJnS8:*~L">
+                    <field name="NUM">120</field>
+                  </shadow>
+                </value>
+                <value name="align">
+                  <shadow type="math_number" id="w!x71hq9u5w~oTya#1R9">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="valign">
+                  <shadow type="math_number" id="WiOo-_uCpE%-Ip)],GXf">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="font">
+                  <shadow type="text" id="FBGGYHp%O?}!-xcrAq3-">
+                    <field name="TEXT"></field>
+                  </shadow>
+                </value>
+                <value name="color">
+                  <block type="outputs_new_color" id="qkV!G=3aQ+Kt1Pzy^:l4">
+                    <value name="r">
+                      <shadow type="math_number" id="l-S$u62-d`:*w(0T5pwr">
+                        <field name="NUM">255</field>
+                      </shadow>
+                    </value>
+                    <value name="g">
+                      <shadow type="math_number" id="|bjvEQ;]@JtNb,#Vr#{M">
+                        <field name="NUM">255</field>
+                      </shadow>
+                    </value>
+                    <value name="b">
+                      <shadow type="math_number" id="g;HnE#k=!VvEe-R)Ig^^">
+                        <field name="NUM">255</field>
+                      </shadow>
+                    </value>
+                    <value name="a">
+                      <shadow type="math_number" id="D3B,cD9Z+?6j:Bj/#Vtr">
+                        <field name="NUM">255</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="h8oOQ_u@3N-cM[(vXm}e" x="63" y="1213">
+    <field name="NAME">move_enemy_bullet</field>
+    <comment pinned="false" h="80" w="160">Move the enemy bullet down the screen</comment>
+    <statement name="STACK">
+      <block type="controls_if" id=".AId3l,ce~)b!2h{4**t">
+        <value name="IF0">
+          <block type="logic_compare" id="$]o.6u/~GpnU:$5,4}#K">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="state_get_variable" id="xTK{489|`;O:S([Kym7H">
+                <field name="name">enemy_bullet_shooting</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="logic_boolean" id="H;;z@Dn4`srE)[hU9)bH">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="procedures_callnoreturn" id="artGP;I8P4x||VyOe[d{">
+            <mutation name="check_player_hit"></mutation>
+            <next>
+              <block type="state_set_variable" id="a;ZD`:Qon|(PeBdspfOG">
+                <field name="name">enemy_bullet_rect.y</field>
+                <value name="value">
+                  <block type="math_arithmetic" id="V`1y8l?_Zb?)Gb%),Wjp">
+                    <field name="OP">MINUS</field>
+                    <value name="A">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="UVZgmj|-$5^1ll7R?yYF">
+                        <field name="name">enemy_bullet_rect.y</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="wjuroo!Fv$[:FtYNZWm;">
+                        <field name="name">enemy_bullet_speed</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if" id="m{f(u.s|$gyhTO;gunXF">
+                    <value name="IF0">
+                      <block type="logic_compare" id="hjDg.@JJ)bins]4|#GH8">
+                        <field name="OP">LT</field>
+                        <value name="A">
+                          <block type="state_get_variable" id="tn;T..2GcZ|yvk;3$(3!">
+                            <field name="name">enemy_bullet_rect.y</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="Y@M~GdO$jc`x{e;t[*9v">
+                            <field name="NUM">-80</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="state_set_variable" id="$G:O+V;RO?K76^c~)ZHI">
+                        <field name="name">enemy_bullet_shooting</field>
+                        <value name="value">
+                          <block type="logic_boolean" id="o1i+y0jnlmsxpXmx):/0">
+                            <field name="BOOL">FALSE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="t(7?1{[?HcY0D:SeVq$P" x="-713" y="1387">
+    <field name="NAME">check_inputs</field>
+    <comment pinned="false" h="80" w="160">Check to see if we need to respond to player input</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="+q5NaDMm]hAEebQ3G8:G">
+        <value name="IF0">
+          <block type="logic_negate" id="^#Y#N/fJO?[2Pu9y{;j]">
+            <value name="BOOL">
+              <block type="logic_compare" id="(=16fzDL+zXkZ3+h1d(m">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="state_get_variable" id="}fF@^?0JJ^,lhy:Mga6N">
+                    <field name="name">game_state</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="text" id="LLz?.X}DXN[xCR_Ylm2a">
+                    <field name="TEXT">playing</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_if" id="BR*iKuUX^{]a1*FqIFZV">
+            <value name="IF0">
+              <block type="keyboard_key_state" id="mUiiWJV)^1!Fw7S%?ZdO">
+                <field name="key">enter</field>
+                <field name="state">key_down</field>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="gtk_reset" id="0Zxtr+M@U=y]t=Sn8o)~"></block>
+            </statement>
+            <next>
+              <block type="return" id=",O_b1|Kvfsv}Lqf:A]J,"></block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="controls_if" id="*X8EAGG6;7VJH_{F$zp/">
+            <value name="IF0">
+              <block type="keyboard_key_state" id="kG[,](To=MnIHzKs%tDZ">
+                <field name="key">left</field>
+                <field name="state">key_held</field>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="state_set_variable" id="6joh82RrS5pM(R-8uS.W">
+                <field name="name">player_rect.x</field>
+                <value name="value">
+                  <block type="math_arithmetic" id="N*Cg.BpjGET-ypl@4^AG">
+                    <field name="OP">MINUS</field>
+                    <value name="A">
+                      <shadow type="math_number" id="D{VP_PI^)d[{4WIaY^3D">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="state_get_variable" id="+aDUI=P#Jc6pp8zquL|2">
+                        <field name="name">player_rect.x</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id="W;ZDSw.R~V/iHlCcd.t8">
+                        <field name="NUM">40</field>
+                      </shadow>
+                      <block type="state_get_variable" id="%a/F*@8,8V`4lTQEpJp]">
+                        <field name="name">player_speed</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="controls_if" id="lRm{4C-s-DG_Z$Nos2]^">
+                <value name="IF0">
+                  <block type="keyboard_key_state" id="i)ZS|-HR;35sg?h8{DhB">
+                    <field name="key">right</field>
+                    <field name="state">key_held</field>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="state_set_variable" id="=AcO|GlU^Z~d9vHwTi`q">
+                    <field name="name">player_rect.x</field>
+                    <value name="value">
+                      <block type="math_arithmetic" id="!-*Qs*b;cjANK|O/$7Z2">
+                        <field name="OP">ADD</field>
+                        <value name="A">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="state_get_variable" id="b?N,5L(2{GIe?HzoOz$f">
+                            <field name="name">player_rect.x</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number">
+                            <field name="NUM">40</field>
+                          </shadow>
+                          <block type="state_get_variable" id="6,cf:#Ji0a*_+69KxuaI">
+                            <field name="name">player_speed</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <next>
+                  <block type="controls_if" id="kY47]TiaFX$vrvMN_Knc">
+                    <value name="IF0">
+                      <block type="keyboard_key_state" id="O]ju?-zqZXbC^YE6_E/8">
+                        <field name="key">space</field>
+                        <field name="state">key_down</field>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="procedures_callnoreturn" id="lBpg0kL`v|-#yR5yaCan">
+                        <mutation name="player_shoot"></mutation>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="v7~4-E^NA2K/Lc~3-k[J" x="338" y="1488">
+    <field name="NAME">check_enemy_hit</field>
+    <comment pinned="false" h="80" w="160">Check to see if the player's bullet hit the enemy</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="C5F?aqSu(NE5Ly?^!u$,">
+        <value name="IF0">
+          <block type="array_intersect_rect" id="K[5},/YSz,C|U`C(1A#P">
+            <value name="arr1">
+              <block type="state_get_variable" id="pO67FJE10%$w3.1Sq-DK">
+                <field name="name">enemy_rect</field>
+              </block>
+            </value>
+            <value name="arr2">
+              <block type="state_get_variable" id="Gvwt{{XBrx5~1/G8.~Wf">
+                <field name="name">player_bullet_rect</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="procedures_callnoreturn" id="3C]tw.!9W456@qEqGw]-">
+            <mutation name="game_over">
+              <arg name="end_state"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="text" id="*!PsMyu[8Y9soW;PFvPA">
+                <field name="TEXT">win</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="R~Q9smOp}+UE;,Meq)CT" x="337" y="1713">
+    <field name="NAME">check_player_hit</field>
+    <comment pinned="false" h="80" w="160">Check to see if the enemy's bullet hit the player</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="wFL%r(C?I}/u?4wOlg7$">
+        <value name="IF0">
+          <block type="array_intersect_rect" id="9dG18V:bT}hx65gbV7)j">
+            <value name="arr1">
+              <block type="state_get_variable" id=".P_DX@kPTmmgV:+0P5{M">
+                <field name="name">player_rect</field>
+              </block>
+            </value>
+            <value name="arr2">
+              <block type="state_get_variable" id=";=1X6Ea!|nP|xwM6P6|4">
+                <field name="name">enemy_bullet_rect</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="procedures_callnoreturn" id="L_(e$DA;iY=QZkf4RNaS">
+            <mutation name="game_over">
+              <arg name="end_state"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="text" id="^GR3ny[rBvu6puf_h*5]">
+                <field name="TEXT">lose</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="c3ZI-%DfEFe9vmI_g_7F" x="-713" y="1837">
+    <field name="NAME">player_shoot</field>
+    <comment pinned="false" h="80" w="160">Player shoots a bullet at the enemy</comment>
+    <statement name="STACK">
+      <block type="state_set_variable" id="8MBet{JQ=ob_d5x0A=|z">
+        <field name="name">player_bullet_rect.y</field>
+        <value name="value">
+          <block type="math_number" id="M1ayFGhHOQA,a7;ICN3T">
+            <field name="NUM">40</field>
+          </block>
+        </value>
+        <next>
+          <block type="state_set_variable" id="GR]nuOvnisG`M3rz=~E:">
+            <field name="name">player_bullet_rect.x</field>
+            <value name="value">
+              <block type="math_arithmetic" id="H:=N?kj]BL?|XVLgHzKw">
+                <field name="OP">ADD</field>
+                <value name="A">
+                  <shadow type="math_number" id="7gelz*9SPnt`Q%f07$F.">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="state_get_variable" id="dUmE;7{_$gIT[j,7Oty#">
+                    <field name="name">player_rect.x</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <shadow type="math_number" id=":7ga#H6kbZUtGgd6FCkD">
+                    <field name="NUM">30</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="state_set_variable" id="4.K$J!a$N3TmRd|#*TeK">
+                <field name="name">player_bullet_shooting</field>
+                <value name="value">
+                  <block type="logic_boolean" id="5Hy}Ks,|cSX.$xOc-V.q">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="2V@(@Mp8?lJw9fCB0Fjn" x="338" y="1988">
+    <mutation>
+      <arg name="end_state" varid="9!^-{9oVV~?Yqp$5@f3t"></arg>
+    </mutation>
+    <field name="NAME">game_over</field>
+    <comment pinned="false" h="80" w="160">Game is over. Did you win or lose?</comment>
+    <statement name="STACK">
+      <block type="state_set_variable" id="C`MjvLz;A]ZHoRn6pTjF">
+        <field name="name">game_state</field>
+        <value name="value">
+          <block type="variables_get" id="=Z^;2?k62I7pEGsyVBxs">
+            <field name="VAR" id="9!^-{9oVV~?Yqp$5@f3t">end_state</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>
