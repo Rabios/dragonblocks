@@ -1061,7 +1061,7 @@ Blockly.Ruby.hash_key_by_value = function(block) {
 Blockly.Ruby.hash_merge_noreturn = function(block) {
   var h1 = Blockly.Ruby.valueToCode(block, 'hash1', Blockly.Ruby.ORDER_ATOMIC);
   var h2 = Blockly.Ruby.valueToCode(block, 'hash2', Blockly.Ruby.ORDER_ATOMIC);
-  return h1 + ".merge!(" + h2 + ")";
+  return h1 + ".merge!(" + h2 + ")\n";
 };
 
 Blockly.Ruby.hash_merge = function(block) {
@@ -1079,4 +1079,21 @@ Blockly.Ruby.hash_flatten = function(block) {
   var h = Blockly.Ruby.valueToCode(block, 'hash', Blockly.Ruby.ORDER_ATOMIC);
   var lvl = Blockly.Ruby.valueToCode(block, 'level', Blockly.Ruby.ORDER_ATOMIC);
   return [h + ".flatten(" + lvl + ")", Blockly.Ruby.ORDER_ATOMIC];
+};
+
+Blockly.Ruby.cext_load = function(block) {
+  var name = Blockly.Ruby.valueToCode(block, 'extname', Blockly.Ruby.ORDER_ATOMIC);
+  return "$gtk.ffi_misc.gtk_dlopen(" + name + ")\n";
+};
+
+Blockly.Ruby.cext_call_noreturn = function(block) {
+  var name = block.getFieldValue('funcname');
+  var args = block.getFieldValue('args');
+  return "FFI::CExt::" + name + "(" + args + ")\n";
+};
+
+Blockly.Ruby.cext_call = function(block) {
+  var name = block.getFieldValue('funcname');
+  var args = block.getFieldValue('args');
+  return ["FFI::CExt::" + name + "(" + args + ")", Blockly.Ruby.ORDER_ATOMIC];
 };

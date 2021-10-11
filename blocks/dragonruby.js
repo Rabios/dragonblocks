@@ -4018,3 +4018,65 @@ Blockly.defineBlocksWithJsonArray([
   "helpUrl": ""
 }
 ]);
+
+// C Extensions
+Blockly.defineBlocksWithJsonArray([
+{
+  "type": "cext_load",
+  "message0": "Load C Extension %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "extname",
+      "check": "String",
+      "align": "RIGHT"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 0,
+  "tooltip": "Loads a C extension for usage.",
+  "helpUrl": ""
+},
+{
+  "type": "cext_call_noreturn",
+  "message0": "Call C function %1 with arguments %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "funcname",
+      "text": ""
+    },
+    {
+      "type": "field_input",
+      "name": "args",
+      "text": ""
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 0,
+  "tooltip": "Calls a C function from loaded C extension with arguments.",
+  "helpUrl": ""
+},
+{
+  "type": "cext_call",
+  "message0": "Call C function %1 with arguments %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "funcname",
+      "text": ""
+    },
+    {
+      "type": "field_input",
+      "name": "args",
+      "text": ""
+    }
+  ],
+  "output": null,
+  "colour": 0,
+  "tooltip": "Calls a C function from loaded C extension with arguments.",
+  "helpUrl": ""
+}
+]);
